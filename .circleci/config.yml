@@ -43,5 +43,5 @@ jobs:
 workflows:
   main: 
     jobs: 
-      - configure-role-arn
+      - install-and-configure-aws-cli
       - say-hello
