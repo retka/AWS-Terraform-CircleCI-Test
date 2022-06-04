@@ -7,3 +7,4 @@ The following environment variables are required on the CircleCI project, with t
 - AWS_SECRET_ACCESS_KEY
 - AWS_ROLE_ARN
 - AWS_DEFAULT_REGION
+- TERRAFORM_ENV_NAME

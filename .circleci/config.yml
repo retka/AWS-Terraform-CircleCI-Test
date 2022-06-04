@@ -27,6 +27,18 @@ jobs:
       - run: >-
           echo "AWS CLI/Profile configuration complete."
 
+      - terraform/install: 
+          arch: amd64
+          os: linux
+      - terraform/validate:
+      - terraform/init:
+          var_file: ./envs/$TERRAFORM_ENV_NAME
+      - terraform/plan: 
+          var_file: ./envs/$TERRAFORM_ENV_NAME
+      - terraform/apply: 
+          var_file: ./envs/$TERRAFORM_ENV_NAME
+      
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
