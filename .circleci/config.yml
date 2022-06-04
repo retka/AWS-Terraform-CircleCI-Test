@@ -16,9 +16,9 @@ jobs:
       - aws-cli/setup:
           profile-name: default
       - aws-cli/role-arn-setup:
-        profile-name: chrisdev_admin
-        role-arn: $AWS_ROLE_ARN
-        source-profile: default
+          profile-name: chrisdev_admin
+          role-arn: $AWS_ROLE_ARN
+          source-profile: default
       - run: >-
           aws sts assume-role --role-arn
           "$AWS_ROLE_ARN" --role-session-name 
