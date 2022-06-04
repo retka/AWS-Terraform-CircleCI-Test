@@ -31,8 +31,7 @@ jobs:
           arch: amd64
           os: linux
       - terraform/validate
-      - terraform/init:
-          var_file: ./envs/$TERRAFORM_ENV_NAME
+      - terraform/init
       - terraform/plan: 
           var_file: ./envs/$TERRAFORM_ENV_NAME
       - terraform/apply: 
