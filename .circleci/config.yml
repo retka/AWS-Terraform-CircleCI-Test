@@ -12,6 +12,8 @@ jobs:
     resource_class: small
     executor: aws-cli/default
     steps:
+      - run: >-
+          echo $AWS_ROLE_ARN
       - checkout
       - aws-cli/setup:
           profile-name: default
