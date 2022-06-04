@@ -33,9 +33,9 @@ jobs:
       - terraform/validate
       - terraform/init
       - terraform/plan: 
-          var_file: ./envs/$TERRAFORM_ENV_NAME
+          var_file: ./envs/$TERRAFORM_ENV_NAME.tfvars
       - terraform/apply: 
-          var_file: ./envs/$TERRAFORM_ENV_NAME
+          var_file: ./envs/$TERRAFORM_ENV_NAME.tfvars
       
 
 # Invoke jobs via workflows
