@@ -12,16 +12,13 @@ jobs:
     resource_class: small
     executor: aws-cli/default
     steps:
-      - run: >-
-          echo "AWS_ROLE_ARN: $AWS_ROLE_ARN"
-      - run: >-
-          echo "AWS_ROLE_ARN:"
-      - run: >-
-          echo "$AWS_ROLE_ARN"
       - checkout
       - aws-cli/setup:
           profile-name: default
-      - aws-cli/role-arn-setup:
+          aws-region: $AWS_DEFAULT_REGION
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+      - aws-cli/role-arn-setup: 
           profile-name: chrisdev_admin
           role-arn: $AWS_ROLE_ARN
           source-profile: default
@@ -29,6 +26,8 @@ jobs:
           aws sts assume-role --role-arn
           "$AWS_ROLE_ARN" --role-session-name 
           CircleCI-CLI-Session
+      - run: >-
+          aws s3 ls --profile chrisdev_admin
   say-hello:
     resource_class: small
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
