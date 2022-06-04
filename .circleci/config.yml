@@ -19,9 +19,9 @@ jobs:
         role-arn: $AWS_ROLE_ARN
         source-profile: default
       - run: >-
-        aws sts assume-role --role-arn
-        $AWS_ROLE_ARN --role-session-name 
-        CircleCI-CLI-Session
+          aws sts assume-role --role-arn
+          "$AWS_ROLE_ARN" --role-session-name 
+          CircleCI-CLI-Session
   say-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
