@@ -8,11 +8,13 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  install-and-configure-aws-cli:
+  main:
     resource_class: small
     executor: aws-cli/default
     steps:
       - checkout
+      - run: >-
+          echo "Configuring AWS CLI and profile..."
       - aws-cli/setup:
           profile-name: default
       - aws-cli/role-arn-setup: 
@@ -21,27 +23,28 @@ jobs:
           source-profile: default
       - run: >-
           aws s3 ls --profile chrisdev_admin
-  say-hello:
-    resource_class: small
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    steps:
-      - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-      - run:
-          name: "Test AWS Permissions: "
-          command: "aws s3 ls --profile chrisdev_admin"
+      - run: >-
+          echo "AWS CLI/Profile configuration complete."
+  # say-hello:
+  #   resource_class: small
+  #   # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+  #   # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  #   docker:
+  #     - image: cimg/base:stable
+  #   # Add steps to the job
+  #   # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Say hello"
+  #         command: "echo Hello, World!"
+  #     - run:
+  #         name: "Test AWS Permissions: "
+  #         command: "aws s3 ls --profile chrisdev_admin"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   main: 
     jobs: 
-      - install-and-configure-aws-cli
-      - say-hello
+      - main
