@@ -8,16 +8,13 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  configure-role-arn:
+  install-and-configure-aws-cli:
     resource_class: small
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/setup:
           profile-name: default
-          # aws-region: $AWS_DEFAULT_REGION
-          # aws-access-key-id: $AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
       - aws-cli/role-arn-setup: 
           profile-name: chrisdev_admin
           role-arn: $AWS_ROLE_ARN
@@ -37,13 +34,14 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+      - run:
+          name: "Test AWS Permissions: "
+          command: "aws s3 ls --profile chrisdev_admin"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  aws-cli: 
+  main: 
     jobs: 
       - configure-role-arn
-  say-hello-workflow:
-    jobs:
       - say-hello
