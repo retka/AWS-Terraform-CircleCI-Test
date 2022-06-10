@@ -1,0 +1,21 @@
+terraform {
+    required_providers {
+      aws = {
+          source  = "hashicorp/aws"
+          version = "~>3.27"
+      }
+    }
+
+    backend "s3" {
+      bucket = "$bucket_name"
+      key    = "$state_key"
+      region = "$region"
+    }
+    
+    required_version = ">= 1.2.2"
+}
+
+provider "aws" {
+    profile = "$aws_profile"
+    region = "$region"
+}
