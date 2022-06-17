@@ -3,7 +3,7 @@ import argparse
 import json
 
 parser = argparse.ArgumentParser(description="testdesc")
-parser.add_argument("-var-file", required=True, type=str, help="Path to the .tfvars.json file for the environment you want to deploy.")
+parser.add_argument("--var-file", required=True, type=str, help="Path to the .tfvars.json file for the environment you want to deploy.")
 args = parser.parse_args()
 
 var_file = args.var_file
