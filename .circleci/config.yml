@@ -14,7 +14,6 @@ jobs:
     executor: aws-cli/default
     steps:
       - checkout
-      - run: ls
 
       - run: echo "Configuring AWS CLI and profile..."
       - aws-cli/setup:
@@ -28,19 +27,20 @@ jobs:
 
       - run: echo "Generating provider for $TERRAFORM_ENV_NAME environment..."
       - run: python ./tf-provider-generate.py --var-file="./envs/$TERRAFORM_ENV_NAME.tfvars.json"
-      - run: ls
 
-      - run: echo "Running Terraform..."
       - terraform/install: 
           arch: amd64
           os: linux
           terraform_version: 1.2.2
+
+      - run: echo "Running Terraform..."
       - terraform/validate
       - terraform/init
       - terraform/plan: 
           var_file: ./envs/$TERRAFORM_ENV_NAME.tfvars.json
       - terraform/apply: 
           var_file: ./envs/$TERRAFORM_ENV_NAME.tfvars.json
+          
       - run: echo "Terraform deploy complete."
       
 
